@@ -1,0 +1,361 @@
+<h3>Relatório Movimentações
+</h3>
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Busca de Movimentações</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="addMovimento(movimento)"
+                      name="formCriaAlteraItem"
+                      id="formCriaAlteraItem">
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Id</label>
+
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" ng-model="movimento._id"
+                                       ng-disabled="flgItemPesquisado == 1"/>
+                            </div>
+                            <label class="col-sm-2 control-label">Dt Movimento</label>
+
+                            <div class="col-sm-3">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                           alt-input-formats="altInputFormats" ng-model="movimento.dta_inclusao"
+                                           ng-disabled="flgItemPesquisado == 1"
+                                           is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true"
+                                           close-text="Close"/>
+                                          <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open2()"><i
+                                                    class="fa fa-calendar"></i></button>
+                                          </span>
+                                </p>
+                            </div>
+                            <label class="col-sm-1 control-label">Usuário</label>
+
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" ng-model="movimento.usuario_inclusao"
+                                       ng-disabled="flgItemPesquisado == 1"/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Tipo</label>
+
+                            <div class="col-sm-10">
+                                <select
+                                        name="tipo"
+                                        class="form-control m-b"
+                                        ng-model="movimento.tipo"
+                                        ng-options="tipo.slg as tipo.nome for tipo in listaTipo"
+                                        required
+                                >
+                                    <option value="">Selecione um Tipo</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{{movimento.tipo == 'E' ?
+                                'Forcedor':'Cliente'}}</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       ng-model="nomePessoaBusca"
+                                       placeholder="{{movimento.tipo == 'E' ? 'Busca de Forcedor':'Busca de Cliente'}}"
+                                       uib-typeahead="pessoa as pessoa.nome for pessoa in getPessoaURLAsync($viewValue)"
+                                       typeahead-loading="loadingPessoaAsync"
+                                       typeahead-no-results="noResultsPessoa"
+                                       typeahead-on-select="pessoaSelecionadoF($model); nomePessoaBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+
+                                <div ng-show="noResultsPessoa">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum
+                                    {{movimento.tipo == 'E' ? 'Forcedor':'Cliente'}}
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="pessoaSelecionada._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarPessoa()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="pessoaSelecionada._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tablePessoa" name="tablePessoa">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-1">Id</th>
+                                        <th class="table-bordered col-sm-2">CGC</th>
+                                        <th class="table-bordered col-sm-3">Nome</th>
+                                        <th class="table-bordered col-sm-4">Fantasia</th>
+                                        <th class="table-bordered col-sm-2">Fone P.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-1 thvermelho"
+                                            ng-bind="pessoaSelecionada._id"></td>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="pessoaSelecionada.cgc"></td>
+                                        <td class="table-bordered col-sm-3 thvermelho"
+                                            ng-bind="pessoaSelecionada.nome"></td>
+                                        <td class="table-bordered col-sm-4 thvermelho"
+                                            ng-bind="pessoaSelecionada.fantasia"></td>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="pessoaSelecionada.fone_principal"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Veiculo</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       id="filtroVeiculos"
+
+                                       ng-model="nomeVeiculoBusca"
+                                       placeholder="Busca de Veiculo"
+                                       uib-typeahead="veiculo as veiculo.nome for veiculo in getVeiculosURLAsync($viewValue)"
+                                       typeahead-loading="loadingVeiculosAsync"
+                                       typeahead-no-results="noResultsVeiculos"
+                                       typeahead-on-select="veiculoSelecionadoF($model); nomeVeiculoBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingVeiculosAsync" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsVeiculos">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum veiculo
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="veiculoSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarVeiculo()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="veiculoSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableVeiculo" name="tableVeiculo">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-4">Nome</th>
+                                        <th class="table-bordered col-sm-3">Placa</th>
+                                        <th class="table-bordered col-sm-3">Cor</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="veiculoSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-4 thvermelho"
+                                            ng-bind="veiculoSelecionado.nome"></td>
+                                        <td class="table-bordered col-sm-3 thvermelho"
+                                            ng-bind="veiculoSelecionado.placa"></td>
+                                        <td class="table-bordered col-sm-3 thvermelho"
+                                            ng-bind="veiculoSelecionado.cor"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Motorista</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       ng-model="nomeMotoristaBusca"
+                                       placeholder="Busca de Motorista"
+                                       uib-typeahead="motorista as motorista.nome for motorista in getMotoristasURLAsync($viewValue)"
+                                       typeahead-loading="loadingMotoristas"
+                                       typeahead-no-results="noResultsMotorista"
+                                       typeahead-on-select="motoristaSelecionadoF($model); nomeMotoristaBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingMotoristas" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsMotorista">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum motorista
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="motoristaSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarMotorista()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="motoristaSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableMotorista" name="tableMotorista">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="motoristaSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="motoristaSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Conferente</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       ng-model="nomeConferenteBusca"
+                                       placeholder="Busca de Conferente"
+                                       uib-typeahead="conferente as conferente.nome for conferente in getConferenteURLAsync($viewValue)"
+                                       typeahead-loading="loadingConferentes"
+                                       typeahead-no-results="noResultsConferente"
+                                       typeahead-on-select="conferenteSelecionadoF($model); nomeConferenteBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingConferentes" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsConferente">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum conferente
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="conferenteSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarConferente()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="conferenteSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableConferente" name="tableConferente">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="conferenteSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="conferenteSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Item</label>
+
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       ng-model="nomeItensBusca"
+                                       placeholder="Busca de Itens"
+                                       uib-typeahead="item as item.nome for item in getItemURLAsync($viewValue)"
+                                       typeahead-loading="loadingItem"
+                                       typeahead-no-results="noResultsItem"
+                                       typeahead-on-select="itemSelecionadoF($model); nomeItensBusca='';"
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingItem" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsItem">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum item
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="itemSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarItem()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="itemSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableItemAtu" name="tableItemAtu">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="itemSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="itemSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="panel">
+
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-primary"
+                                   id="btnPesquisar"
+                                   name="btnPesquisar"
+                                   value="Pesquisar Movimento"
+                                   ng-click="pesquisarMovimento()"
+                            />
+                        </div>
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-green"
+                                   id="btnLimpar"
+                                   name="btnLimpar"
+                                   value="Limpar Busca"
+                                   ng-click="limparMovimento()"
+                            />
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

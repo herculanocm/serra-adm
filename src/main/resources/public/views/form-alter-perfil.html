@@ -1,0 +1,84 @@
+<h3>Alterar Perfils
+   <small>Alteração de Perfils e controle de Acesso.</small>
+</h3>
+<div class="panel panel-default">
+    <div class="panel-heading">Selecione o Perfil</div>
+        <div class="panel-body">
+            <fieldset class="last-child">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Perfils</label>
+                    <div class="col-sm-10">
+                        <select
+                                name="account"
+                                class="form-control m-b"
+                                ng-model="perfilSelect"
+                                ng-options="perfil._id as perfil.nome for perfil in perfils"
+                                ng-change="changePerfil(perfilSelect)"
+                        >
+                            <option value="">Selecione o Perfil</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default" ng-if="perfilSelect!=null">
+    <div class="panel-heading">Controle de Acesso</div>
+        <div class="panel-body">
+
+
+
+                <div id="panelDemo1" class="panel panel-default" ng-repeat="rota in menuItemsPerfil">
+                    <div class="panel-heading"> <em class="{{rota.icon}}"></em> Acesso ao menu de <span class="text-bold" ng-bind="rota.text"></span>
+                        <paneltool tool-collapse="tool-collapse"></paneltool>
+                    </div>
+                    <div uib-collapse="panelDemo1" class="panel-wrapper">
+                        <div class="panel-body">
+
+                            <fieldset>
+                                <div class="col-xs-10 col-sm-10 col-lg-10 zeroEspaco">
+                                    Visibilidade da Pagina
+                                </div>
+
+                                <div class="col-xs-2 col-sm-2 col-lg-2 zeroEspaco">
+                                    <label class="switch">
+                                        <input type="checkbox" checked="checked" ng-model="rota.modelo" ng-change="changeRotaPerfil(rota._id,rota.modelo)"/>
+                                            <span></span>
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <div id="panelDemoSubmenu" class="panel panel-default" ng-repeat="submenu in rota.submenu">
+                                <div class="panel-heading"> Pagina de <span class="text-bold" ng-bind="submenu.text"></span>
+                                    <paneltool tool-collapse="tool-collapse"></paneltool>
+                                </div>
+                                <div uib-collapse="panelDemoSubmenu" class="panel-wrapper">
+                                    <div class="panel-body">
+
+                                        <fieldset>
+                                            <div class="col-xs-10 col-sm-10 col-lg-10 zeroEspaco">
+                                                Visibilidade da Pagina
+                                            </div>
+
+                                            <div class="col-xs-2 col-sm-2 col-lg-2 zeroEspaco">
+                                                <label class="switch">
+                                                    <input type="checkbox" checked="checked" ng-model="submenu.modelo" ng-change="changeRotaPerfil(submenu._id,submenu.modelo)"/>
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </fieldset>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+        </div>
+    </div>
+</div>

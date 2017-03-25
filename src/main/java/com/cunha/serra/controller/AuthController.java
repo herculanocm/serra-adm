@@ -10,5 +10,5 @@ public class AuthController {
 	public String loginPage(){
 		System.out.println("Controller AuthController loginPage()");
 		return "auth/login";
-	}
+	}  
 }

@@ -1,0 +1,983 @@
+<h3>Movimentações
+</h3>
+
+<div class="row" ng-if="flgPesquisado == 2">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo101" class="panel panel-default">
+
+            <div class="col-lg-12 panel-heading">
+                <!--<h4><a ng-click="voltarBusca()">Voltar</a></h4>-->
+
+                <div class="row col-lg-12 cabecalho-cinza">
+
+                    <div class="col-lg-6">
+                        <a title="Anterior" class="img-responsive pull-left" ng-click="anteriorSeta()">
+                            <em class="icon-arrow-left iconmaior"></em>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <a title="Posterior" class="img-responsive pull-right" ng-click="proximaSeta()">
+                            <em class="icon-arrow-right iconmaior"></em>
+                        </a>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <h4>Movimentação no dia
+                            {{movimento.dta_inclusao | date:'dd/MM/yyyy hh:mm:ss'}}</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" ng-click="voltarBusca()"> Voltar</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-danger" ng-click="editaMovimento()"> Editar</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-warning" ng-click="imprimeMovimento('print-table')"> Imprimir</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div id="print-tabela" class="panel-body">
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="col-xs-2 col-sm-2 col-lg-2  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            ID
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento._id}}
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-lg-4  text-center zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            DATA
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.dta_inclusao | date:'dd/MM/yyyy hh:mm:ss'}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-lg-6 zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            USUARIO INCLUSÃO
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.usuario_inclusao}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="col-xs-2 col-sm-2 col-lg-2  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            TIPO
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.tipo == 'E' ? 'ENTRADA':'SAIDA'}}
+                        </div>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-lg-8  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            SUB TIPO
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.sub_tipo}}
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-lg-2  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            STATUS
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.status == 'A' ? 'ATIVO':'CANCELADO'}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="col-xs-8 col-sm-8 col-lg-8  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            NUM NF
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.numnf}}
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-lg-4  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            DATA NF
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.dtanf | date:'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="text-center zeroEspaco div-titulo">
+                        {{movimento.tipo == 'E' ? 'Fornecedor':'Cliente'}}
+                    </div>
+                    <div class="zeroEspaco div-conteudo">
+                        <table st-table="rowCollection" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">CGC</th>
+                                <th class="col-xs-5 col-sm-5 col-lg-5">Nome</th>
+                                <th class="col-xs-3 col-sm-3 col-lg-3">Fone Principal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.pessoa._id}}</td>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.pessoa.cgc}}</td>
+                                <td class="col-xs-5 col-sm-5 col-lg-5">{{movimento.pessoa.nome}}</td>
+                                <td class="col-xs-3 col-sm-3 col-lg-3">{{movimento.pessoa.fone_principal}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="text-center zeroEspaco div-titulo">
+                        VEICULO
+                    </div>
+                    <div class="zeroEspaco div-conteudo">
+                        <table st-table="rowCollection" class="table table-striped tablezespaco"
+                               name="tableItem">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+                                <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Marca</th>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Modelo</th>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Placa</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo._id}}</td>
+                                <td class="col-xs-4 col-sm-4 col-lg-4">{{movimento.veiculo.nome}}</td>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.marca}}</td>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.modelo}}</td>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.placa}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="text-center zeroEspaco div-titulo">
+                        MOTORISTA
+                    </div>
+                    <div class="zeroEspaco div-conteudo">
+                        <table st-table="rowCollection" class="table table-striped"
+                               id="tableItemConf" name="tableItemConf">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+                                <th class="col-xs-10 col-sm-10 col-lg-10">Nome</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.motorista._id}}</td>
+                                <td class="col-xs-10 col-sm-10 col-lg-10">{{movimento.motorista.nome}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="text-center zeroEspaco div-titulo">
+                        CONFERENTE
+                    </div>
+                    <div class="zeroEspaco div-conteudo">
+                        <table st-table="rowCollection" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+                                <th class="col-xs-10 col-sm-10 col-lg-10">Nome</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.conferente._id}}</td>
+                                <td class="col-xs-10 col-sm-10 col-lg-10">{{movimento.conferente.nome}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            DESCRIÇÃO
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{movimento.descricao}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            ITENS
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            <table st-table="rowCollection" class="table table-striped"
+                                   id="tableItem" name="tableItem">
+                                <thead>
+                                <tr>
+                                    <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+                                    <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+                                    <th class="col-xs-4 col-sm-4 col-lg-4">Unidade</th>
+                                    <th class="col-xs-2 col-sm-2 col-lg-2">Qtd</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in movimento.itens">
+                                    <td class="col-xs-2 col-sm-2 col-lg-2">{{item.item._id}}</td>
+                                    <td class="col-xs-4 col-sm-4 col-lg-4">{{item.item.nome}}</td>
+                                    <td class="col-xs-4 col-sm-4 col-lg-4">{{item.unidade.nome}}</td>
+                                    <td class="col-xs-2 col-sm-2 col-lg-2">{{item.qtd}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="panelUnidade" class="panel panel-default">
+                        <div class="panel-heading div-titulo" ng-click="panelUnidade = !panelUnidade">HISTORICO</span>
+                            <paneltool></paneltool>
+                        </div>
+                        <div uib-collapse="panelUnidade" class="panel-wrapper">
+                            <div class="panel-body">
+
+                                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamentoSeg"
+                                     ng-repeat="movi in movimento.historico.historico | orderBy:'dtaEntrada'">
+
+                                    <div class="col-xs-3 col-sm-3 col-lg-3  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            SUB TIPO
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.subTipo}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3 col-sm-3 col-lg-3  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            DATA ENT.
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.dtaEntrada | date:'dd/MM/yyyy hh:mm:ss'}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            USUÁRIO
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.usuario_inclusao}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            PESSOA
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.pessoa}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            MOTORISTA
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.motorista}}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            NUM NF
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.numnf}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            DATA NF
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.dtanf | date:'dd/MM/yyyy'}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            CONFERENTE
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.conferente}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-lg-6  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            VEICULO
+                                        </div>
+                                        <div class="zeroEspaco div-conteudo">
+                                            {{movi.veiculo}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-lg-12  zeroEspaco">
+                                        <div class="text-center zeroEspaco div-titulo">
+                                            ITENS
+                                        </div>
+
+                                        <div class="zeroEspaco div-conteudo" ng-repeat="item in movi.itens">
+
+
+                                            <div class="col-xs-2 col-sm-2 col-lg-2  zeroEspaco">
+                                                <div class="text-center zeroEspaco div-titulo">
+                                                    ID
+                                                </div>
+                                                <div class="zeroEspaco div-conteudo">
+                                                    {{item.item._id}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-4 col-sm-4 col-lg-4  zeroEspaco">
+                                                <div class="text-center zeroEspaco div-titulo">
+                                                    NOME
+                                                </div>
+                                                <div class="zeroEspaco div-conteudo">
+                                                    {{item.item.nome}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-4 col-sm-4 col-lg-4  zeroEspaco">
+                                                <div class="text-center zeroEspaco div-titulo">
+                                                    UNIDADE
+                                                </div>
+                                                <div class="zeroEspaco div-conteudo">
+                                                    {{item.unidade.nome}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-2 col-sm-2 col-lg-2  zeroEspaco">
+                                                <div class="text-center zeroEspaco div-titulo">
+                                                    QTD
+                                                </div>
+                                                <div class="zeroEspaco div-conteudo">
+                                                    {{item.qtd}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" ng-if="flgPesquisado == 1">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelBusca" class="panel panel-default">
+            <div class="panel-heading"><h4><a ng-click="voltarBusca()">Voltar</a></h4></div>
+            <div class="panel-body">
+
+                <div class="panel panel-default" ng-if="exportCSVFormatado.length > 0">
+                    <button type="button"
+                            uib-tooltip="Para abrir no excel é necessário texto para colunas delimitado por | para formatação"
+                            class="btn btn-link"
+                            ng-csv="exportCSVFormatado"
+                            csv-header="exportHeader"
+                            field-separator="|"
+                            filename="{{filenameInventario}}"><em class="fa fa-arrow-circle-down"></em> Exportar movimento para .csv
+                    </button>
+                </div>
+
+                <table st-table="rowCollection" class="table table-striped"
+                       id="tableResultadoPesquisaItem" name="tableResultadoPesquisaItem">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Id</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Data/Hora</th>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Usuario</th>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Tipo</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Sub Tipo</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Veiculo</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Motorista</th>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="movimento in movimentos | orderBy:'_id'">
+                        <td class="col-xs-1 col-sm-1 col-lg-1">{{movimento._id}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.dta_inclusao | date:'dd/MM/yyyy hh:mm:ss'}}
+                        </td>
+                        <td class="col-xs-1 col-sm-1 col-lg-1">{{movimento.usuario_inclusao}}</td>
+                        <td class="col-xs-1 col-sm-1 col-lg-1" ng-class="movimento.tipo != 'S' ? 'tdazul':'tdvermelho'">{{movimento.tipo}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.sub_tipo}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.nome}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.motorista.nome}}</td>
+                        <td class="col-xs-1 col-sm-1 col-lg-1">
+                            <a ng-click="visualizarMovimento(movimento._id)">
+                                <em class="fa fa-eye"></em><span
+                                    class="text-center text-paddingleft5px">Ver</span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="flgPesquisado == 0">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Busca de Movimentações</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="addMovimento(movimento)"
+                      name="formCriaAlteraItem"
+                      id="formCriaAlteraItem">
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Id</label>
+
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" ng-model="movimento._id"
+                                       ng-disabled="flgItemPesquisado == 1"/>
+                            </div>
+                            <label class="col-sm-2 control-label">Dt Movimento</label>
+
+                            <div class="col-sm-3">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                           alt-input-formats="altInputFormats" ng-model="movimento.dta_inclusao"
+                                           ng-disabled="flgItemPesquisado == 1"
+                                           is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true"
+                                           close-text="Close"/>
+                                          <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open2()"><i
+                                                    class="fa fa-calendar"></i></button>
+                                          </span>
+                                </p>
+                            </div>
+                            <label class="col-sm-1 control-label">Usuário</label>
+
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" ng-model="movimento.usuario_inclusao"
+                                       ng-disabled="flgItemPesquisado == 1"/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Tipo</label>
+
+                            <div class="col-sm-10">
+                                <select
+                                        name="tipo"
+                                        class="form-control m-b"
+                                        ng-model="movimento.tipo"
+                                        ng-options="tipo.slg as tipo.nome for tipo in listaTipo"
+                                        required
+                                >
+                                    <option value="">Selecione um Tipo</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{{movimento.tipo == 'E' ?
+                                'Forcedor':'Cliente'}}</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       ng-model="nomePessoaBusca"
+                                       placeholder="{{movimento.tipo == 'E' ? 'Busca de Forcedor':'Busca de Cliente'}}"
+                                       uib-typeahead="pessoa as pessoa.nome for pessoa in getPessoaURLAsync($viewValue)"
+                                       typeahead-loading="loadingPessoaAsync"
+                                       typeahead-no-results="noResultsPessoa"
+                                       typeahead-on-select="pessoaSelecionadoF($model); nomePessoaBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+
+                                <div ng-show="noResultsPessoa">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum
+                                    {{movimento.tipo == 'E' ? 'Forcedor':'Cliente'}}
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="pessoaSelecionada._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarPessoa()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="pessoaSelecionada._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tablePessoa" name="tablePessoa">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-1">Id</th>
+                                        <th class="table-bordered col-sm-2">CGC</th>
+                                        <th class="table-bordered col-sm-3">Nome</th>
+                                        <th class="table-bordered col-sm-4">Fantasia</th>
+                                        <th class="table-bordered col-sm-2">Fone P.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-1 thvermelho"
+                                            ng-bind="pessoaSelecionada._id"></td>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="pessoaSelecionada.cgc"></td>
+                                        <td class="table-bordered col-sm-3 thvermelho"
+                                            ng-bind="pessoaSelecionada.nome"></td>
+                                        <td class="table-bordered col-sm-4 thvermelho"
+                                            ng-bind="pessoaSelecionada.fantasia"></td>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="pessoaSelecionada.fone_principal"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Veiculo</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       id="filtroVeiculos"
+
+                                       ng-model="nomeVeiculoBusca"
+                                       placeholder="Busca de Veiculo"
+                                       uib-typeahead="veiculo as veiculo.nome for veiculo in getVeiculosURLAsync($viewValue)"
+                                       typeahead-loading="loadingVeiculosAsync"
+                                       typeahead-no-results="noResultsVeiculos"
+                                       typeahead-on-select="veiculoSelecionadoF($model); nomeVeiculoBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingVeiculosAsync" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsVeiculos">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum veiculo
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="veiculoSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarVeiculo()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="veiculoSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableVeiculo" name="tableVeiculo">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-4">Nome</th>
+                                        <th class="table-bordered col-sm-3">Placa</th>
+                                        <th class="table-bordered col-sm-3">Cor</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="veiculoSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-4 thvermelho"
+                                            ng-bind="veiculoSelecionado.nome"></td>
+                                        <td class="table-bordered col-sm-3 thvermelho"
+                                            ng-bind="veiculoSelecionado.placa"></td>
+                                        <td class="table-bordered col-sm-3 thvermelho"
+                                            ng-bind="veiculoSelecionado.cor"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Motorista</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       ng-model="nomeMotoristaBusca"
+                                       placeholder="Busca de Motorista"
+                                       uib-typeahead="motorista as motorista.nome for motorista in getMotoristasURLAsync($viewValue)"
+                                       typeahead-loading="loadingMotoristas"
+                                       typeahead-no-results="noResultsMotorista"
+                                       typeahead-on-select="motoristaSelecionadoF($model); nomeMotoristaBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingMotoristas" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsMotorista">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum motorista
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="motoristaSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarMotorista()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="motoristaSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableMotorista" name="tableMotorista">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="motoristaSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="motoristaSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Conferente</label>
+
+                            <div class="col-sm-8">
+
+                                <input type="text"
+                                       ng-model="nomeConferenteBusca"
+                                       placeholder="Busca de Conferente"
+                                       uib-typeahead="conferente as conferente.nome for conferente in getConferenteURLAsync($viewValue)"
+                                       typeahead-loading="loadingConferentes"
+                                       typeahead-no-results="noResultsConferente"
+                                       typeahead-on-select="conferenteSelecionadoF($model); nomeConferenteBusca='';"
+                                       typeahead-min-length="1"
+                                       type
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingConferentes" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsConferente">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum conferente
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="conferenteSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarConferente()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="conferenteSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableConferente" name="tableConferente">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="conferenteSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="conferenteSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Item</label>
+
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       ng-model="nomeItensBusca"
+                                       placeholder="Busca de Itens"
+                                       uib-typeahead="item as item.nome for item in getItemURLAsync($viewValue)"
+                                       typeahead-loading="loadingItem"
+                                       typeahead-no-results="noResultsItem"
+                                       typeahead-on-select="itemSelecionadoF($model); nomeItensBusca='';"
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingItem" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsItem">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum item
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="itemSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarItem()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="itemSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableItemAtu" name="tableItemAtu">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="itemSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="itemSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="panel">
+
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-primary"
+                                   id="btnPesquisar"
+                                   name="btnPesquisar"
+                                   value="Pesquisar Movimento"
+                                   ng-click="pesquisarMovimento()"
+                            />
+                        </div>
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-green"
+                                   id="btnLimpar"
+                                   name="btnLimpar"
+                                   value="Limpar Busca"
+                                   ng-click="limparMovimento()"
+                            />
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="visibility" id="print-table">
+    <div class="div-titulo"> <span class="span-titulo">Impresso por : {{usuarioLogado}} - {{getTimeImpresao()}}</span> </div>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th>Id Movimento</th>
+            <th>Data Inclusao</th>
+            <th>Usuario Inclusao</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{movimento._id}}</td>
+            <td>{{movimento.dta_inclusao}}</td>
+            <td>{{movimento.usuario_inclusao}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Sub Tipo</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{movimento.tipo}}</td>
+            <td>{{movimento.sub_tipo}}</td>
+            <td>{{movimento.status}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="div-titulo"> <span class="span-titulo">{{movimento.tipo == 'E' ? 'Fornecedor':'Cliente'}}</span> </div>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>CGC</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{movimento.pessoa._id}}</td>
+            <td>{{movimento.pessoa.cgc}}</td>
+            <td>{{movimento.pessoa.nome}}</td>
+            <td>{{movimento.pessoa.fone_principal}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="div-titulo"> <span class="span-titulo">Veiculo </span></div>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+            <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Marca</th>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Modelo</th>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Placa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo._id}}</td>
+            <td class="col-xs-4 col-sm-4 col-lg-4">{{movimento.veiculo.nome}}</td>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.marca}}</td>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.modelo}}</td>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.veiculo.placa}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="div-titulo"> <span class="span-titulo">Motorista</span> </div>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+            <th class="col-xs-10 col-sm-10 col-lg-10">Nome</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.motorista._id}}</td>
+            <td class="col-xs-10 col-sm-10 col-lg-10">{{movimento.motorista.nome}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="div-titulo"> <span class="span-titulo">Conferente</span> </div>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+            <th class="col-xs-10 col-sm-10 col-lg-10">Nome</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.conferente._id}}</td>
+            <td class="col-xs-10 col-sm-10 col-lg-10">{{movimento.conferente.nome}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="div-titulo"> <span class="span-titulo"> Descrição </span> </div>
+
+    <table st-table="rowCollection">
+        <tbody>
+        <tr>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{movimento.descricao}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="div-titulo"> <span class="span-titulo"> ITENS </span> </div>
+
+    <table st-table="rowCollection">
+        <thead>
+        <tr>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Id</th>
+            <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+            <th class="col-xs-4 col-sm-4 col-lg-4">Unidade</th>
+            <th class="col-xs-2 col-sm-2 col-lg-2">Qtd</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in movimento.itens">
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{item.item._id}}</td>
+            <td class="col-xs-4 col-sm-4 col-lg-4">{{item.item.nome}}</td>
+            <td class="col-xs-4 col-sm-4 col-lg-4">{{item.unidade.nome}}</td>
+            <td class="col-xs-2 col-sm-2 col-lg-2">{{item.qtd}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

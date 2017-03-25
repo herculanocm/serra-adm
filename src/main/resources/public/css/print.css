@@ -1,0 +1,185 @@
+@media print {
+    * {
+        background:transparent !important;
+        color:#000 !important;
+        text-shadow:none !important;
+        filter:none !important;
+        -ms-filter:none !important;
+    }
+
+    body {
+        margin:0;
+        padding:0;
+        line-height: 1.4em;
+    }
+
+    @page {
+        margin-top: 2%;
+        margin-bottom: 5%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    nav, footer, video, audio, object, embed {
+        display:none;
+    }
+
+    .print {
+        display:block;
+    }
+
+    .no-print {
+        display:none;
+    }
+
+
+    body {
+        font: 7pt Georgia, "Times New Roman", Times, serif;
+        color: #000;
+    }
+
+    h1 {
+        font-size: 24pt;
+    }
+
+    h2 {
+        font-size: 18pt;
+    }
+
+    h3 {
+        font-size: 14pt;
+    }
+
+    table {
+        font: 9pt Calibri, "Times New Roman", Times, serif;
+        white-space: normal;
+        line-height: normal;
+        font-weight: normal;
+        font-variant: normal;
+        font-style: normal;
+        text-align: start;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+    .titulo-impri{
+        text-align: center;
+        padding: 0px;
+        margin: 0 auto;
+    }
+    .span-total{
+        font: 14pt Calibri, "Times New Roman", Times, serif;
+    }
+    .span-data{
+        font: 12pt Calibri, "Times New Roman", Times, serif;
+        margin-left: 30px;
+    }
+    .span-data-inicio{
+        font: 12pt Calibri, "Times New Roman", Times, serif;
+    }
+    .obs{
+        font: 12pt Calibri, "Times New Roman", Times, serif;
+    }
+    .td-tabela-carregamento{
+        text-align: center;
+    }
+    .span-total-forma{
+        font: 14pt Calibri, "Times New Roman", Times, serif;
+        margin-left: 14px;
+    }
+    .span-total-forma-inicio{
+        font: 14pt Calibri, "Times New Roman", Times, serif;
+    }
+    .span-unidades{
+        font: 12pt Calibri, "Times New Roman", Times, serif;
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    table{
+        margin: 20px 0px 20px 0px;
+    }
+}
+* {
+    background:transparent !important;
+    color:#000 !important;
+    text-shadow:none !important;
+    filter:none !important;
+    -ms-filter:none !important;
+}
+
+body {
+    margin:0;
+    padding:0;
+    line-height: 1.4em;
+}
+
+nav, footer, video, audio, object, embed {
+    display:none;
+}
+
+.print {
+    display:block;
+}
+
+.no-print {
+    display:none;
+}
+
+
+body {
+    font: 7pt Georgia, "Times New Roman", Times, serif;
+    color: #000;
+}
+
+h1 {
+    font-size: 24pt;
+}
+
+h2 {
+    font-size: 18pt;
+}
+
+h3 {
+    font-size: 14pt;
+}
+
+table {
+    font: 9pt Calibri, "Times New Roman", Times, serif;
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-variant: normal;
+    font-style: normal;
+    text-align: start;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+div {
+    margin: 0 auto;
+    padding: 0px;
+    text-align: center;
+}
+
+table{
+    margin: 0px 0px 0px 0px;
+}
+.div-titulo{
+    margin: 0 auto;
+    padding: 0px;
+    text-align: center;
+}
+.span-titulo{
+    font: 10pt Calibri, "Times New Roman", Times, serif;
+    padding: 0px;
+    margin: 0 auto;
+    text-align: center;
+}
+

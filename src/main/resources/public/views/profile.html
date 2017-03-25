@@ -1,0 +1,101 @@
+<h3>Perfil de Usuário
+    <small>Manutenção na Conta.</small>
+</h3>
+<div class="panel widget">
+    <div class="panel-body">
+        <div class="row row-table">
+            <div class="col-xs-4 text-center">
+                <img src="{{user.picture}}" alt="Image" class="img-thumbnail img-circle img-responsive thumb96" />
+            </div>
+            <div class="col-xs-8">
+
+                <h3 class="mt0">{{user.nome}}</h3>
+                <p class="text-muted">{{user.nomUsuario}}</p>
+                <p class="text-muted">{{user.desEmail}}</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" ng-if="user._id != 0">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Alterações no Perfil</h4></div>
+            <div class="panel-body">
+
+                <accordion close-others="oneAtATime">
+                    <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                        <accordion-heading>Clique aqui para alterar dados de acesso.</accordion-heading>
+
+                        <form class="form-horizontal" ng-submit="addUsuarioProfile(usuarioProfile)" name="formCriaUsuario">
+
+                                <div class="panel-body">
+                                    <h4>Dados do Usuário</h4>
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Nome Completo</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" ng-model="usuarioProfile.nome2"  required/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Usuario de Login</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" ng-model="usuarioProfile.nomUsuario" disabled/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Email</label>
+                                            <div class="col-sm-6">
+                                                <input type="email" data-parsley-type="email" class="form-control" ng-model="usuarioProfile.desEmail2" required/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Senha</label>
+                                            <div class="col-sm-6">
+                                                <input type="password" class="form-control" id="desSenha" name="desSenha" ng-model="usuarioProfile.desSenha1" required/>
+                                            </div>
+                                            <div class="col-sm-4" ng-show="usuarioProfile.desSenha1 == null || usuarioProfile.desSenha1.length < 6">
+                                                <code>Senha no mínimo 6 caracteres</code>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Repita a Senha</label>
+                                            <div class="col-sm-6">
+                                                <input type="password" class="form-control" id="desSenha2" name="desSenha2" ng-model="usuarioProfile.desSenha2" required/>
+                                            </div>
+                                            <div class="col-sm-4" ng-show="usuarioProfile.desSenha2 == null || usuarioProfile.desSenha2 != usuarioProfile.desSenha1">
+                                                <code>As senhas devem ser iguais.</code>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+
+                                </div>
+                                <div class="panel-footer text-center">
+                                    <button type="submit" class="btn btn-info" ng-disabled="usuarioProfile.desSenha2.length < 6 || usuarioProfile.desSenha1.length <6 || usuarioProfile.desSenha2 != usuarioProfile.desSenha1">Alterar dados</button>
+                                </div>
+
+                        </form>
+                     </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

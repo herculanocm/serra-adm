@@ -1,0 +1,28 @@
+<div class="abs-center wd-xl">
+   <!-- START panel-->
+   <div class="p">
+      <img ng-src="{{user.picture}}" alt="Avatar" width="60" height="60" class="img-thumbnail img-circle center-block" />
+   </div>
+   <div class="panel widget b0">
+      <div class="panel-body">
+         <p class="text-center">Para entrar e preciso logar novamente ou digitar a senha</p>
+         <form role="form" ng-submit="desbloquear(senha)">
+            <div class="form-group has-feedback">
+               <input id="exampleInputPassword1" type="password" placeholder="Senha" class="form-control" ng-model="senha" required/>
+               <span class="fa fa-lock form-control-feedback text-muted"></span>
+            </div>
+            <div class="clearfix">
+
+               <div class="pull-right">
+                  <button type="submit" class="btn btn-sm btn-primary">Desbloquear</button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+   <!-- END panel-->
+   <div class="p-lg text-center">
+      <span>&copy; {{app.year}} - {{ app.name }}
+         <br/>{{app.description}}</span>
+   </div>
+</div>

@@ -1,0 +1,175 @@
+<h3>Automóveis
+</h3>
+
+<div class="row" ng-if="flgPesquisado == 1">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelBusca" class="panel panel-default">
+            <div class="panel-heading"><h4><a ng-click="voltarBusca()">Voltar</a> </h4></div>
+            <div class="panel-body">
+                <table st-table="rowCollection" class="table table-striped"
+                       id="tableResultadoPesquisaItem" name="tableResultadoPesquisaItem">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Id</th>
+                        <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+                        <th class="col-xs-3 col-sm-3 col-lg-3">Placa</th>
+                        <th class="col-xs-3 col-sm-3 col-lg-3">Marca</th>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="veiculo in veiculos | orderBy:'_id'">
+                        <td class="col-xs-1 col-sm-1 col-lg-1">{{veiculo._id}}</td>
+                        <td class="col-xs-4 col-sm-4 col-lg-4">{{veiculo.nome}}</td>
+                        <td class="col-xs-3 col-sm-3 col-lg-3">{{veiculo.placa}}</td>
+                        <td class="col-xs-3 col-sm-3 col-lg-3">{{veiculo.marca}}</td>
+                        <td class="col-xs-1 col-sm-1 col-lg-1">
+                            <a ng-click="visualizarVeiculo(veiculo._id)">
+                                <em class="fa fa-eye"></em><span class="text-center text-paddingleft5px">Ver</span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="flgPesquisado != 1">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>{{flgItemPesquisado == 1 ? 'Atenção você esta alterando um veiculo' : 'Cadastrando ou Busca'}}</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="addVeiculo(veiculo)"
+                      name="formCriaAlteraItem"
+                      id="formCriaAlteraItem">
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Id</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" ng-model="veiculo._id"
+                                       ng-disabled="flgItemPesquisado == 1"/>
+                            </div>
+                            <label class="col-sm-2 control-label">Placa</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" ng-model="veiculo.placa" ui-br-car-plate-mask required/>
+                            </div>
+                            <label class="col-sm-2 control-label">Marca</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" ng-model="veiculo.marca" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Nome</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" ng-model="veiculo.nome" required/>
+                            </div>
+                            <label class="col-sm-2 control-label">Modelo</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" ng-model="veiculo.modelo" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ano</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" ng-model="veiculo.ano" required/>
+                            </div>
+                            <label class="col-sm-2 control-label">Cor</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" ng-model="veiculo.cor" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Descrição</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="veiculo.descricao"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline c-radio">
+                                    <input id="inlineradio1" type="radio" name="i-radio" value="A"
+                                           ng-model="veiculo.status" checked="checked"/>
+                                    <span class="fa fa-circle"></span>Ativo</label>
+                                <label class="radio-inline c-radio">
+                                    <input id="inlineradio2" type="radio" name="i-radio" value="B"
+                                           ng-model="veiculo.status"/>
+                                    <span class="fa fa-circle"></span>Bloqueado</label>
+                                <label class="radio-inline c-radio">
+                                    <input id="inlineradio3" type="radio" name="i-radio" value="D"
+                                           ng-model="veiculo.status"/>
+                                    <span class="fa fa-circle"></span>Desativado</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="panel">
+                        <div class="col-sm-3 text-center panel-footer">
+                            <input type="submit"
+                                   class="btn"
+                                   ng-class="flgItemPesquisado == 1 ? 'btn-warning':'btn-primary'"
+                                   id="btnCriaAlteraVeiculo"
+                                   name="btnCriaAlteraVeiculo"
+                                   ng-value="flgItemPesquisado == 1 ? 'Alterar Veiculo':'Criar Veiculo'"
+                            />
+
+                        </div>
+                        <div class="col-sm-3 text-center panel-footer">
+                            <input type="button"
+                                   ng-disabled="flgItemPesquisado != 1"
+                                   class="btn btn-danger"
+                                   id="btnDeletar"
+                                   name="btnDeletar"
+                                   value="Deletar"
+                                   ng-click="deletarVeiculo(veiculo._id)"
+                            />
+                        </div>
+                        <div class="col-sm-3 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-green"
+                                   id="btnLimpar"
+                                   name="btnLimpar"
+                                   value="Limpar"
+                                   ng-click="limparVeiculo()"
+                            />
+                        </div>
+                        <div class="col-sm-3 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-icon"
+                                   id="btnPesquisar"
+                                   name="btnPesquisar"
+                                   value="Pesquisar"
+                                   ng-click="pesquisarVeiculo()"
+                            />
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

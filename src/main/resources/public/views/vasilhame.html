@@ -1,0 +1,128 @@
+<h3>Vasilhames
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4></h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="addVasilhame(vasilhame)" name="formUnidade" id="formUnidade">
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Unidades</label>
+                            <div class="col-sm-4">
+                                <select
+                                        name="account"
+                                        class="form-control m-b"
+                                        ng-model="vasilhame.unidade"
+                                        ng-options="uni as uni.nome for uni in unidades"
+                                        ng-change="alteraUnidade(vasilhame.unidade)"
+                                        required
+                                >
+                                    <option value="">Selecione uma Unidade</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label">Qtd Disp.</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" ng-model="vasilhame.qtd_disponivel" disabled/>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Tipo</label>
+                            <div class="col-sm-4">
+                                <select
+                                        name="tipo"
+                                        class="form-control m-b"
+                                        ng-model="vasilhame.tipo"
+                                        ng-options="tipo.slg as tipo.nome for tipo in listaTipo"
+                                        required
+                                >
+                                    <option value="">Selecione um Tipo</option>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Qtd Lanc.</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" ng-model="vasilhame.qtd" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Descrição</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="vasilhame.descricao" required></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="panel">
+                        <div class="col-sm-12 text-center panel-footer">
+                            <input type="submit" class="btn btn-primary" value="Adicionar"/>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="vasilhames.length > 0">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4></h4></div>
+            <div class="panel-body">
+                <table st-table="rowCollection" class="table table-striped"
+                       id="tableResultadoPesquisaItem" name="tableResultadoPesquisaItem">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-3 col-sm-3 col-lg-3">Nome</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Tipo</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Disp.</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Adici.</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Total</th>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="va in vasilhames">
+                        <td class="col-xs-3 col-sm-3 col-lg-3">{{va.unidade.nome}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{va.tipo}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{va.qtd_disponivel}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{va.qtd}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{va.total}}</td>
+                        <td class="col-xs-1 col-sm-1 col-lg-1">
+                            <a ng-click="removerVasilhame(va.unidade._id)">
+                                <em class="fa fa-trash-o"></em><span class="text-center text-paddingleft5px">Excluir</span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <div class="panel">
+                    <div class="col-sm-12 text-center panel-footer">
+                        <button
+                                class="btn btn-danger"
+                                ng-click="gravarVasilhame()"
+                                uib-tooltip="Clicando aqui você irá gravar os dados permanentemente, não poderá apagar isso."
+                        >Gravar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

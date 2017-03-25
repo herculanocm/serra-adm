@@ -1,0 +1,126 @@
+<h3>Unidade
+    <small>Cadastro e manutenção de Unidade...</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4></h4></div>
+            <div class="panel-body">
+
+                <fieldset class="last-child">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Unidades</label>
+                        <div class="col-sm-10">
+                            <select
+                                    name="account"
+                                    class="form-control m-b"
+                                    ng-model="codUnidade"
+                                    ng-options="uni._id as uni.nome for uni in unidades"
+                                    ng-change="alteraUnidade(codUnidade)"
+                            >
+                                <option value="">Selecione uma Unidade</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4></h4></div>
+            <div class="panel-body">
+
+                <form class="form-horizontal" ng-submit="addUnidade(unidade)" name="formUnidade" id="formUnidade">
+
+                    <fieldset>
+                        <div class="form-group">
+
+                            <label class="col-sm-2 control-label">Id</label>
+                            <div class="col-sm-2">
+                                <input type="number" id="id" name="id" ng-model="unidade._id" class="form-control" disabled
+                                />
+                            </div>
+
+                            <label class="col-sm-2 control-label">Sigla</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="sigla" name="sigla" ng-model="unidade.sigla"
+                                       class="form-control"
+                                       required/>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Tx. Conv.</label>
+                            <div class="col-sm-2">
+                                <input type="number"
+                                       id="tx"
+                                       name="tx"
+                                       ng-model="unidade.tx"
+                                       class="form-control"
+                                       ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                       step="0.01"
+                                       required/>
+                            </div>
+
+
+                            <label class="col-sm-2 control-label">Unidade</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="nome" name="nome" ng-model="unidade.nome"
+                                       class="form-control"
+                                       required/>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Vasilhame?</label>
+                            <div class="col-sm-10" ng-init="unidade.vasilhame='N'">
+                                <label class="radio-inline c-radio" uib-tooltip="Clique em sim caso deseja que essa unidade seja monitorado o seu vasilhame.">
+                                    <input id="inlineradio1" type="radio" name="i-radio" value="S" ng-model="unidade.vasilhame" checked="checked" />
+                                    <span class="fa fa-circle"></span>Sim</label>
+                                <label class="radio-inline c-radio">
+                                    <input id="inlineradio2" type="radio" name="i-radio" value="N" ng-model="unidade.vasilhame" />
+                                    <span class="fa fa-circle"></span>Não</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="panel-footer text-center">
+                        <input type="button"
+                               class="btn btn-green"
+                               id="btnLimpar"
+                               name="btnLimpar"
+                               value="Limpar"
+                               ng-click="limparUnidade()"
+                        />
+                        <input type="button"
+                               ng-if="unidade._id > 1"
+                               class="btn btn-danger"
+                               id="btnDeletar"
+                               name="btnDeletar"
+                               value="Deletar"
+                               ng-click="deletarUnidade(unidade._id)"
+                        />
+
+
+                        <input type="submit"
+                               ng-if="unidade._id > 1 || unidade._id==null"
+                               class="btn"
+                               ng-class="unidade._id > -1 ? 'btn-warning':'btn-primary'"
+                               id="btnCriarUnidade"
+                               name="btnCriarUnidade"
+                               ng-value="unidade._id > -1 ? 'Alterar Unidade':'Criar Unidade'"
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

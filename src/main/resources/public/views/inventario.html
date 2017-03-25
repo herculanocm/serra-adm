@@ -1,0 +1,70 @@
+<h3>Inventário
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Busca de Inventário</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="findInventario(inventario)">
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Data</label>
+
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                           alt-input-formats="altInputFormats" ng-model="inventario.dtInventario"
+                                           ng-disabled="flgItemPesquisado == 1"
+                                           is-open="popup.opened" datepicker-options="dateOptions" ng-required="true"
+                                           close-text="Close"/>
+                                          <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open()"><i
+                                                    class="fa fa-calendar"></i></button>
+                                          </span>
+                                </p>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <input type="submit"
+                                       class="btn btn-primary"
+                                       value="Buscar"
+                                />
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="inventarios.length > 0">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div>
+                    <button type="button"
+                            uib-tooltip="Para abrir no excel é necessário texto para colunas delimitado por | para formatação"
+                            class="btn btn-link"
+                            ng-csv="inventarioTratado"
+                            csv-header="inventarioHeader"
+                            field-separator="|"
+                            filename="{{filenameInventario}}"><em class="fa fa-arrow-circle-down"></em> Exportar Inventário para .csv
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

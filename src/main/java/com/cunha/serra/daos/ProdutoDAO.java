@@ -12,6 +12,7 @@ import com.cunha.serra.models.Produto;
 
 @Repository
 public class ProdutoDAO {
+	
 	@PersistenceContext
 	private EntityManager manager;
 
@@ -21,7 +22,7 @@ public class ProdutoDAO {
 	
 	public List<Produto> lista(){
 		//return manager.createNativeQuery("select * from produto").getResultList();
-		return manager.createQuery("select p from produto p",Produto.class).getResultList();
+		return manager.createQuery("select p from Produto p",Produto.class).getResultList();
 	}
 
 }

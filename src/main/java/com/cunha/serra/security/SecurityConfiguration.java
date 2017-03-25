@@ -28,8 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
+		.antMatchers("/public/**").permitAll()
 		.antMatchers("/shopping/**").hasRole("ADMIN")
-		//.antMatchers(HttpMethod.GET,"/produtos/list").hasRole("ADMIN");
+		.antMatchers(HttpMethod.GET,"/produtos/list").hasRole("ADMIN")
 		.and().httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint());
 		
 		/*
@@ -52,6 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		 */
 		
 	}
+	
+	
+	
 	
 	@Bean
 	public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){

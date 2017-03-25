@@ -1,0 +1,143 @@
+<h3>Posição Item
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo14" class="panel panel-default">
+            <div class="panel-heading"><h4></h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="buscarItens(findItem)">
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Item</label>
+
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       ng-model="nomeItensBusca"
+                                       placeholder="Busca de Itens"
+                                       uib-typeahead="item as item.nome for item in getItemURLAsync($viewValue)"
+                                       typeahead-loading="loadingItem"
+                                       typeahead-no-results="noResultsItem"
+                                       typeahead-on-select="itemSelecionadoF($model); nomeItensBusca='';"
+                                       class="form-control"
+                                />
+                                <i ng-show="loadingItem" class="glyphicon glyphicon-refresh"></i>
+
+                                <div ng-show="noResultsItem">
+                                    <i class="glyphicon glyphicon-remove"></i> Não foi encontrado nenhum item
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><input type="button" class="btn"
+                                                         ng-class="itemSelecionado._id > -1? 'btn-danger':''"
+                                                         ng-click="deletarItem()" value="Remover"/></div>
+
+                            <div class="col-sm-12 div-margintop10px" ng-if="itemSelecionado._id > -1">
+                                <table st-table="rowCollection" class="table table-striped"
+                                       id="tableItemAtu" name="tableItemAtu">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-bordered col-sm-2">Id</th>
+                                        <th class="table-bordered col-sm-10">Nome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="table-bordered col-sm-2 thvermelho"
+                                            ng-bind="itemSelecionado._id"></td>
+                                        <td class="table-bordered col-sm-10 thvermelho"
+                                            ng-bind="itemSelecionado.nome"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+
+                    <fieldset>
+                        <div class="form-group">
+
+                                <label class="col-sm-2 control-label">Unidade</label>
+                            <div class="col-sm-10">
+                                <select
+                                        class="form-control m-b"
+                                        ng-model="findItem.idUnidade"
+                                        ng-options="uni._id as uni.nome for uni in unidades"
+                                >
+                                    <option value="">Selecione uma Unidade</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+
+
+                    <div class="panel">
+
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="submit" class="btn btn-primary" value="Buscar"/>
+                        </div>
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-danger"
+                                   value="Limpar Busca"
+                                   ng-click="limparItens()"
+                            />
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="itens.length > 0">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4></h4></div>
+            <div class="panel-body">
+                <table st-table="rowCollection" class="table table-striped"
+                       id="tableItem" name="tableItem">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Id</th>
+                        <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Unid</th>
+                        <th class="col-xs-3 col-sm-3 col-lg-3">Unidades</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Qtd</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in itens">
+                        <td class="col-xs-1 col-sm-1 col-lg-1">{{item._id}}</td>
+                        <td class="col-xs-4 col-sm-4 col-lg-4">{{item.nome}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{item.estoqueUnidade | number:0}}</td>
+                        <td class="col-xs-3 col-sm-3 col-lg-3">
+                            <select
+                                    class="form-control m-b"
+                                    ng-model="item.tx"
+                                    ng-options="uni.tx as uni.nome for uni in item.unidades"
+                                    ng-change="alteraUnidade(unidadeEscolhida)"
+                            >
+                                <option value="">Selecione uma Unidade</option>
+                            </select>
+                        </td>
+
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{item.qtd / item.tx | number:2}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="1 == 2" ui-grid="gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>

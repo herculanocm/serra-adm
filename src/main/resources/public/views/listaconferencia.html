@@ -1,0 +1,210 @@
+<h3>Conferências
+</h3>
+
+<div class="row" ng-if="flgPesquisado == 2">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo101" class="panel panel-default">
+            <div class="panel-heading"><h4><a ng-click="voltarBusca()">Voltar</a></h4> <h4>Conferência no dia
+                {{conferencia.dta_inclusao | date:'dd/MM/yyyy hh:mm:ss'}}</h4></div>
+            <div class="panel-body">
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="col-xs-2 col-sm-2 col-lg-2  zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            ID
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{conferencia._id}}
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-lg-4  text-center zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            DATA
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{conferencia.dta_inclusao | date:'dd/MM/yyyy hh:mm:ss'}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-lg-6 zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            USUARIO INCLUSÃO
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{conferencia.nom_usuario}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            COMENTARIO
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            {{conferencia.comentario}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12  divEspacamento">
+                    <div class="zeroEspaco">
+                        <div class="text-center zeroEspaco div-titulo">
+                            ITENS
+                        </div>
+                        <div class="zeroEspaco div-conteudo">
+                            <table st-table="rowCollection" class="table table-striped"
+                                   name="tableItem">
+                                <thead>
+                                <tr>
+                                    <th class="col-xs-1 col-sm-1 col-lg-1">Id</th>
+                                    <th class="col-xs-4 col-sm-4 col-lg-4">Nome</th>
+                                    <th class="col-xs-4 col-sm-4 col-lg-4">Unidade</th>
+                                    <th class="col-xs-1 col-sm-1 col-lg-1">Conferencia</th>
+                                    <th class="col-xs-1 col-sm-1 col-lg-1">Estoque</th>
+                                    <th class="col-xs-1 col-sm-1 col-lg-1">Diferença</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in conferencia.itens.itens">
+                                    <td class="col-xs-1 col-sm-1 col-lg-1" ng-class="(item.verif * item.tx) < item.qtd? 'tdvermelho':''">{{item._id}}</td>
+                                    <td class="col-xs-4 col-sm-4 col-lg-4" ng-class="(item.verif * item.tx) < item.qtd? 'tdvermelho':''">{{item.nome}}</td>
+                                    <td class="col-xs-4 col-sm-4 col-lg-4" ng-class="(item.verif * item.tx) < item.qtd? 'tdvermelho':''">{{item.unidadeEscolhida.nome}}</td>
+                                    <td class="col-xs-1 col-sm-1 col-lg-1" ng-class="(item.verif * item.tx) < item.qtd? 'tdvermelho':''">{{item.verif * item.tx}}</td>
+                                    <td class="col-xs-1 col-sm-1 col-lg-1" ng-class="(item.verif * item.tx) < item.qtd? 'tdvermelho':''">{{item.qtd}}</td>
+                                    <td class="col-xs-1 col-sm-1 col-lg-1" ng-class="(item.verif * item.tx) < item.qtd? 'tdvermelho':''">{{item.qtd -  (item.verif * item.tx)}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" ng-if="flgPesquisado == 1">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelBusca" class="panel panel-default">
+            <div class="panel-heading"><h4><a ng-click="voltarBusca()">Voltar</a></h4></div>
+            <div class="panel-body">
+                <table st-table="rowCollection" class="table table-striped"
+                       id="tableResultadoPesquisaItem" name="tableResultadoPesquisaItem">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Id</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Data/Hora</th>
+                        <th class="col-xs-2 col-sm-2 col-lg-2">Usuario</th>
+                        <th class="col-xs-6 col-sm-6 col-lg-6">Comentario</th>
+                        <th class="col-xs-1 col-sm-1 col-lg-1">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="conferencia in conferencias | orderBy:'_id'">
+                        <td class="col-xs-1 col-sm-1 col-lg-1">{{conferencia._id}}</td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{conferencia.dta_inclusao | date:'dd/MM/yyyy hh:mm:ss'}}
+                        </td>
+                        <td class="col-xs-2 col-sm-2 col-lg-2">{{conferencia.nom_usuario}}</td>
+                        <td class="col-xs-6 col-sm-6 col-lg-6">{{conferencia.comentario}}</td>
+                        <td class="col-xs-1 col-sm-1 col-lg-1" ng-click="visualizarConferencia(conferencia._id)">
+                            <a ng-click="visualizarConferencia(conferencia._id)">
+                                <em class="fa fa-eye"></em><span
+                                    class="text-center text-paddingleft5px">Ver</span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="flgPesquisado == 0">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Busca de Conferências</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="pesquisarConferencia(conferenciaBusca)">
+
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Id</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" ng-model="conferenciaBusca._id"/>
+                            </div>
+
+                            <label class="col-sm-2 control-label">Usuário</label>
+                            <div class="col-sm-6">
+                                <select
+                                        class="form-control m-b"
+                                        ng-model="conferenciaBusca.id_usuario"
+                                        ng-options="usuario._id as usuario.nome for usuario in usuarios"
+                                >
+                                    <option value="">Selecione um Tipo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+
+                        <label class="col-sm-2 control-label">Dt Inicial</label>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                       alt-input-formats="altInputFormats" ng-model="conferenciaBusca.dta_inicio"
+                                       is-open="popup1.opened" datepicker-options="conferencia" close-text="Close"/>
+                                          <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open1()"><i
+                                                    class="fa fa-calendar"></i></button>
+                                          </span>
+                            </p>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Dt Fim</label>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                       alt-input-formats="altInputFormats" ng-model="conferenciaBusca.dta_fim"
+                                       is-open="popup2.opened" datepicker-options="conferencia" close-text="Close"/>
+                                          <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open2()"><i
+                                                    class="fa fa-calendar"></i></button>
+                                          </span>
+                            </p>
+                        </div>
+
+                    </fieldset>
+
+                    <div class="panel">
+
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="submit"
+                                   class="btn btn-primary"
+                                   id="btnPesquisar"
+                                   name="btnPesquisar"
+                                   value="Pesquisar Conferência"
+                            />
+                        </div>
+                        <div class="col-sm-6 text-center panel-footer">
+                            <input type="button"
+                                   class="btn btn-green"
+                                   id="btnLimpar"
+                                   name="btnLimpar"
+                                   value="Limpar Busca"
+                                   ng-click="limparConferencia()"
+                            />
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

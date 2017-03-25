@@ -13,14 +13,19 @@ import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="produto")
+import com.cunha.serra.models.Preco;
+
+
+
+@Entity
 public class Produto {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@NotNull
 	private String title;
-	@Lob
+	
 	private String description;
 	@Min(30)
 	private int pages;

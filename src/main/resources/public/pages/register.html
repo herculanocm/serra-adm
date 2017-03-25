@@ -1,0 +1,48 @@
+<div class="block-center mt-xl wd-xl">
+   <!-- START panel-->
+   <div class="panel panel-dark panel-flat">
+      <div class="panel-heading text-center">
+         <a href="#">
+            <img src="app/img/logo.png" alt="Image" class="block-center img-rounded" />
+         </a>
+      </div>
+      <div class="panel-body">
+         <p class="text-center pv">Configuração do Primeiro Acesso.</p>
+         <form role="formval" class="mb-lg" ng-submit="registrarSenha(usuario)">
+            <div class="form-group has-feedback">
+               <label for="signupInputEmail1" class="text-muted">Usuário</label>
+               <input id="signupInputEmail1" type="text" placeholder="ex: herculanocm" autocomplete="off" class="form-control" ng-model="usuario.nomUsuario" required />
+               <span class="fa fa-user form-control-feedback text-muted"></span>
+            </div>
+            <div class="form-group has-feedback">
+               <label for="signupInputPassword1" class="text-muted">Senha</label>
+               <input id="signupInputPassword1" name="senha1" type="password" placeholder="Senha" autocomplete="off" class="form-control" pattern=".{6,10}" ng-model="usuario.senha1" required/>
+               <span class="fa fa-lock form-control-feedback text-muted"></span>
+            </div>
+            <div class="form-group has-feedback">
+               <label for="signupInputRePassword1" class="text-muted">Repita a Senha</label>
+               <input id="signupInputRePassword1" type="password" placeholder="Repita a Senha" autocomplete="off" class="form-control" pattern=".{6,10}" ng-model="usuario.senha2" required/>
+               <span class="fa fa-lock form-control-feedback text-muted"></span>
+            </div>
+             <div class="required" ng-show="usuario.senha1 != usuario.senha2">As senhas devem ser iguais e ter no mínimo 6 e no máximo 10 caracteres.</div>
+            <!--
+            <div class="clearfix">
+               <div class="checkbox c-checkbox pull-left mt0">
+                  <label>
+                     <input type="checkbox" value="" />
+                     <span class="fa fa-check"></span>I agree with the <a href="#">terms</a>
+                  </label>
+               </div>
+            </div>
+            -->
+            <button type="submit" class="btn btn-block btn-primary mt-lg" ng-disabled="formval.$invalid">Acessar conta</button>
+         </form>
+         <p class="pt-lg text-center">Já tem uma conta?</p><a ui-sref="page.login" class="btn btn-block btn-default">Ir para o Login</a>
+      </div>
+   </div>
+   <!-- END panel-->
+   <div class="p-lg text-center">
+      <span>&copy; {{app.year}} - {{ app.name }}
+         <br/>{{app.description}}</span>
+   </div>
+</div>

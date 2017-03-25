@@ -1,0 +1,277 @@
+<h3>Manutenção de Pessoa
+    <small>Pagina para adicionar, buscar e alterar clientes.</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Cadastro de Pessoa</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="addPessoa(pessoa,formCriaPessoa)" name="formCriaPessoa" id="formCriaPessoa">
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">CPF/CNPJ</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="cgc" name="cgc" ng-model="pessoa.cgc" class="form-control"
+                                       ui-br-cpfcnpj-mask required/>
+                                <code ng-if="!pessoa.cgc">CPF ou CNPJ invalido.</code>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="btn btn-primary"
+                                        type="button"
+                                        id="btnValidar"
+                                        name="btnValidar"
+                                        value="Validar"
+                                        ng-disabled="!pessoa.cgc"
+                                        ng-click="validarCGCClick(pessoa.cgc)"
+                                />
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div ng-if="cgcValido && pessoa.cgc">
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Id</label>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" ng-model="pessoa._id" disabled />
+                                </div>
+                                <label class="col-sm-2 control-label">Data Inclusão</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" ng-model="dtaCriacaoPessoa" disabled/>
+                                </div>
+                                <label class="col-sm-2 control-label">Usuario Inclusão</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" ng-model="pessoa.usuarioInclusao" disabled />
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">IE/RG</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="pessoa.ierg"
+                                           />
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Nome</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="pessoa.nome"
+                                           ng-minlength="7"
+                                           required />
+                                </div>
+                                <code ng-if="!pessoa.nome">Nome minimo de 7 caracteres</code>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Fantasia</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="pessoa.fantasia"
+                                           ng-minlength="7"
+                                           required />
+                                </div>
+                                <code ng-if="!pessoa.fantasia">Fantasia minimo de 7 caracteres</code>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Cep</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.cep"
+                                           required
+                                    />
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="button" class="btn btn-primary"
+                                           value="Buscar"
+                                            ng-click="buscaCEP(enderecoPrincipal.cep)"
+                                    />
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Logradouro</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.logradouro"
+                                           ng-disabled="!enderecoPrincipal.status"
+                                           required
+                                    />
+                                </div>
+                                <label class="col-sm-2 control-label">Num</label>
+                                <div class="col-sm-2">
+                                    <input type="number"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.num"
+                                           required
+
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Bairro</label>
+                                <div class="col-sm-3">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.bairro"
+                                           ng-disabled="!enderecoPrincipal.status"
+                                           required
+                                    />
+                                </div>
+                                <label class="col-sm-1 control-label">Cidade</label>
+                                <div class="col-sm-3">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.localidade"
+                                           ng-disabled="!enderecoPrincipal.status"
+                                           required
+                                    />
+                                </div>
+                                <label class="col-sm-1 control-label">UF</label>
+                                <div class="col-sm-2">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.uf"
+                                           ng-disabled="!enderecoPrincipal.status"
+                                           required
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Complemento</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.complemento"
+                                           ng-disabled="!enderecoPrincipal.status && enderecoPrincipal.complementoStatus==false"
+                                    />
+                                </div>
+                                <label class="col-sm-2 control-label">Complemento 2</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="enderecoPrincipal.complemento2"
+                                    />
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Fone Principal</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" ng-model="pessoa.fonePrincipal" ui-br-phone-number required />
+                                </div>
+                                <label class="col-sm-2 control-label">Fone Residencial</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" ng-model="pessoa.foneResidencial" ui-br-phone-number  />
+                                </div>
+                                <label class="col-sm-2 control-label">Fone Comercial</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" ng-model="pessoa.foneComercial" ui-br-phone-number  />
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Perfil</label>
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline c-checkbox" ng-repeat="tipo in listaTipoPessoa">
+                                        <input type="checkbox"
+                                               value="{{tipo.id}}"
+                                               ng-model="tipo.selecionado"
+                                               ng-click="selecionandoTipo(tipo)"
+                                               ng-required="!isCheckBoxValido()"
+                                        />
+                                        <span class="fa fa-check"></span>{{tipo.descricao}}</label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Status</label>
+                                <div class="col-sm-10">
+                                    <label class="radio-inline c-radio">
+                                        <input id="inlineradio1" type="radio" name="i-radio" value="A" ng-model="pessoa.status" checked="checked" />
+                                        <span class="fa fa-circle"></span>Ativo</label>
+                                    <label class="radio-inline c-radio">
+                                        <input id="inlineradio2" type="radio" name="i-radio" value="B" ng-model="pessoa.status" />
+                                        <span class="fa fa-circle"></span>Bloqueado</label>
+                                    <label class="radio-inline c-radio">
+                                        <input id="inlineradio3" type="radio" name="i-radio" value="D" ng-model="pessoa.status" />
+                                        <span class="fa fa-circle"></span>Desativado</label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset ng-if="listaTipoPessoa[2].selecionado == true">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Tipo Funcionário</label>
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline c-checkbox" ng-repeat="tipoFuncionario in listaTipoFuncionaro">
+                                        <input type="checkbox"
+                                               value="{{tipoFuncionario.id}}"
+                                               ng-model="tipoFuncionario.selecionado"
+                                               ng-required="!isCheckBoxValidoFuncionario()"
+                                        />
+                                        <span class="fa fa-check"></span>{{tipoFuncionario.descricao}}</label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+                    </div>
+                    <div class="panel-footer text-center">
+
+                        <input type="submit"
+                               class="btn"
+                               ng-class="pessoa._id > 0 ? 'btn-warning':'btn-primary'"
+                               id="btnCriarPessoa"
+                               name="btnCriarPessoa"
+                               value="{{btnGravarAlterar}}"
+                               ng-disabled="!pessoa.cgc"
+                        />
+
+                        <input ng-if="pessoa._id > 1"
+                                type="button"
+                               class="btn btn-danger"
+                               id="btnDeletarPessoa"
+                               name="btnDeletarPessoa"
+                               value="Deletar Pessoa"
+                               ng-click="deletarPessoa(pessoa._id)"
+                        />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

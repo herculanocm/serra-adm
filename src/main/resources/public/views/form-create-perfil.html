@@ -1,0 +1,40 @@
+<h3>Criação de Perfil
+   <small>Crie o Perfil para associar aos usuários e adicionar acessos.</small>
+</h3>
+
+
+<!-- START row-->
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" ng-submit="addPerfil(nomPerf)" name="formCriaUsuario">
+            <!-- START panel-->
+            <div class="panel panel-default">
+                <!--
+                <div class="panel-heading">
+                   <div class="panel-title">Fields validation</div>
+                </div>
+                -->
+                <div class="panel-body">
+                    <h4>Nome do Perfil</h4>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Nome do Perfil</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" ng-model="nomPerf" placeholder="ex : Users" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+
+                </div>
+                <div class="panel-footer text-center">
+                    <button type="submit" class="btn btn-primary">Criar Perfil</button>
+                </div>
+            </div>
+            <!-- END panel-->
+        </form>
+    </div>
+</div>
+<!-- END row-->

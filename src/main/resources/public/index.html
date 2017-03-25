@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="son">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>SalesON</title>
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"  type='text/css' media='all'  />
+
+    <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"  type='text/css' media='all' />
+    <link rel="stylesheet" href="vendor/toaster/toaster.css"  type='text/css' media='all' />
+
+    <link rel="stylesheet" href="css/app.css" type='text/css' media='all' />
+    <link rel="stylesheet" href="css/theme-f.css" type='text/css' media='all' />
+
+</head>
+<body ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed }">
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true}"></toaster-container>
+<div ui-view="" data-autoscroll="false" ng-class="mainViewAnimation" class="wrapper"></div>
+
+
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="node_modules/angular/angular.min.js"></script>
+
+<script src="node_modules/angular-touch/angular-touch.min.js"></script>
+<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+
+<script src="node_modules/angular-i18n/angular-locale_pt-br.js"></script>
+<script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="node_modules/oclazyload/dist/ocLazyLoad.require.min.js"></script>
+<script src="node_modules/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="node_modules/ngstorage/ngStorage.min.js"></script>
+<script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
+<script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+
+<script src="node_modules/angular-input-masks/releases/angular-input-masks-dependencies.min.js"></script>
+<script src="node_modules/angular-input-masks/releases/angular-input-masks.br.min.js"></script>
+<script src="node_modules/angular-input-masks/releases/angular-input-masks.br.js"></script>
+<script src="vendor/toaster/toaster.js"></script>
+<script src="node_modules/moment/min/moment-with-locales.min.js"></script>
+<script src="node_modules/angular-moment/angular-moment.min.js"></script>
+<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+
+<script src="node_modules/ng-csv/src/ng-csv/ng-csv.js"></script>
+<script src="node_modules/ng-csv/src/ng-csv/directives/ng-csv.js"></script>
+<script src="node_modules/ng-csv/src/ng-csv/services/csv-service.js"></script>
+
+<script src="js/app.js"></script>
+<script src="js/constants.js"></script>
+<script src="js/rotas.js"></script>
+<script src="js/config.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/factory.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/jqueryAux.js"></script>
+
+
+
+
+</body>
+</html>

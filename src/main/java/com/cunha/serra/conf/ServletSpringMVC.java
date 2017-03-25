@@ -31,5 +31,7 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 		Filter[] singleton = { new CORSFilter(), new OpenEntityManagerInViewFilter() };
 		return singleton;
 	}
+	
+	
 
 }

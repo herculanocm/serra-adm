@@ -1,0 +1,112 @@
+<h3>Busca de Pessoa
+    <small>Busque a pessoa para exlusão ou edição.</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- START panel-->
+        <div id="panelDemo13" class="panel panel-default">
+            <div class="panel-heading"><h4>Buscar</h4></div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="findPessoa(pessoa)" name="formBuscarPessoa"
+                      id="formBuscarPessoa">
+
+                    <fieldset>
+                        <div class="form-group">
+
+                            <label class="col-sm-2 control-label" for="idPessoa">Id</label>
+                            <div class="col-sm-2">
+                                <input type="number"
+                                       id="idPessoa"
+                                       name="idPessoa"
+                                       ng-model="pessoa.id"
+                                       class="form-control"
+                                />
+                            </div>
+
+                            <label class="col-sm-2 control-label" for="cgc">CPF/CNPJ</label>
+                            <div class="col-sm-6">
+                                <input type="text"
+                                       id="cgc"
+                                       name="cgc"
+                                       ng-model="pessoa.cgc"
+                                       class="form-control"
+                                       ui-br-cpfcnpj-mask/>
+                            </div>
+
+                            <label class="col-sm-2 control-label" for="nome">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text"
+                                       id="nome"
+                                       name="nome"
+                                       ng-model="pessoa.nome"
+                                       class="form-control"
+                                />
+                            </div>
+<!--
+                            <label class="col-sm-2 control-label" for="fantasia">Fantasia</label>
+                            <div class="col-sm-10">
+                                <input type="text"
+                                       id="fantasia"
+                                       name="fantasia"
+                                       ng-model="pessoa.fantasia"
+                                       class="form-control"
+                                />
+                            </div>
+-->
+                        </div>
+
+                    </fieldset>
+
+                    <div class="panel-footer text-center">
+                        <input type="button"
+                               class="btn btn-warning"
+                               id="btnLimparBusca"
+                               name="btnLimparBusca"
+                               value="Limpar Busca"
+                               ng-click="limparBusca()"
+                        />
+                        <input type="submit"
+                               class="btn btn-primary"
+                               id="btnBuscarPessoa"
+                               name="btnBuscarPessoa"
+                               value="Buscar Pessoa"
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="pessoas.length > 0">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <table st-table="rowCollection" class="table table-striped" id="tableInadimplentes" name="tableInadimplentes">
+                <thead>
+                <tr>
+                    <th class="col-xs-1 col-sm-1 col-lg-1">Id</th>
+                    <th class="col-xs-2 col-sm-2 col-lg-2">CGC</th>
+                    <th class="col-xs-3 col-sm-3 col-lg-3">Nome</th>
+                    <th class="col-xs-3 col-sm-3 col-lg-3">Fantasia</th>
+                    <th class="col-xs-1 col-sm-1 col-lg-1">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="pessoa in pessoas">
+                    <td class="col-xs-1 col-sm-1 col-lg-1">{{pessoa._id}}</td>
+                    <td class="col-xs-2 col-sm-2 col-lg-2">{{pessoa.cgc}}</td>
+                    <td class="col-xs-3 col-sm-3 col-lg-3">{{pessoa.nome}}</td>
+                    <td class="col-xs-3 col-sm-3 col-lg-3">{{pessoa.fantasia}}</td>
+                    <td class="col-xs-1 col-sm-1 col-lg-1">
+                        <a ng-click="editarPessoa(pessoa._id)" >
+                        <em class="fa fa-edit"></em><span class="text-center text-paddingleft5px">Edit</span>
+                    </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

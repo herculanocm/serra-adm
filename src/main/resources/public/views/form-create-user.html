@@ -1,0 +1,86 @@
+<h3>Criação de Usuário
+   <small>Atenção nesta etapa.</small>
+</h3>
+
+
+<!-- START row-->
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" ng-submit="addUsuario(usuario)" name="formCriaUsuario">
+            <!-- START panel-->
+            <div class="panel panel-default">
+                <!--
+                <div class="panel-heading">
+                   <div class="panel-title">Fields validation</div>
+                </div>
+                -->
+                <div class="panel-body">
+                    <h4>Dados do Usuário</h4>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Nome Completo</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" ng-model="usuario.nome" placeholder="ex: Herculano Cunha Madureira" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Usuario de Login</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" ng-model="usuario.nomUsuario" placeholder="ex: herculanocm" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-6">
+                                <input type="email" data-parsley-type="email" class="form-control" ng-model="usuario.desEmail" placeholder="ex: herculanocm@techpattern.com" required/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Senha Provisoria</label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="desSenhaProv" name="desSenhaProv" ng-model="usuario.desSenhaProv" required/>
+                            </div>
+                            <div class="col-sm-4" ng-show="usuario.desSenhaProv == null || usuario.desSenhaProv.length < 6">
+                                <code>Senha no mínimo 6 caracteres</code>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Selecione o perfil</label>
+                            <div class="col-sm-6">
+                                <select
+                                        name="perfil"
+                                        class="form-control"
+                                        ng-model="usuario.perfil"
+                                        ng-options="perfil._id as perfil.nome for perfil in perfils"
+                                        required
+                                >
+                                    <option value="">Selecione um Perfil</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                </div>
+                <div class="panel-footer text-center">
+                    <button type="submit" class="btn btn-primary">Criar Usuário</button>
+                </div>
+            </div>
+            <!-- END panel-->
+        </form>
+    </div>
+</div>
+<!-- END row-->

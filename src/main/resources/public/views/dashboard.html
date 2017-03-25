@@ -1,0 +1,59 @@
+<h3>
+
+    Dashboard
+    <small>Dashboard 1 de acompanhamento</small>
+</h3>
+<!-- START widgets box-->
+<div class="row">
+    <div class="col-lg-3 col-sm-4">
+        <!-- START widget-->
+        <div class="panel widget bg-primary">
+            <div class="row row-table">
+                <div class="col-xs-4 text-center bg-primary-dark pv-lg">
+                    <em class="icon-cloud-upload fa-3x"></em>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                    <div class="h2 mt0">0</div>
+                    <div class="text-uppercase">Enviados</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-4">
+        <!-- START widget-->
+        <div class="panel widget bg-danger">
+            <div class="row row-table">
+                <div class="col-xs-4 text-center bg-danger-dark pv-lg">
+                    <em class="icon-globe fa-3x"></em>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                    <div class="h2 mt0">0
+
+                    </div>
+                    <div class="text-uppercase">Aprovação</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-4">
+        <!-- START widget-->
+        <div class="panel widget bg-green">
+            <div class="row row-table">
+                <div class="col-xs-4 text-center bg-green-dark pv-lg">
+                    <em class="icon-bubbles fa-3x"></em>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                    <div class="h2 mt0">0</div>
+                    <div class="text-uppercase">Faturamento</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <div google-chart chart="chartVendedores" style="height: 600px; width: 100%"></div>
+</div>
+
+<button value="Enviar" ng-click="enviarDados()"></button>

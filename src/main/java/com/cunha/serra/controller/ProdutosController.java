@@ -5,10 +5,12 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cunha.serra.daos.ProdutoDAO;
@@ -16,15 +18,16 @@ import com.cunha.serra.models.BookType;
 import com.cunha.serra.models.Produto;
 
 @RequestMapping("/produtos")
-@Controller
+@RestController
 @Transactional
 public class ProdutosController {
 	
 	@Autowired
 	private ProdutoDAO productDAO;
 	
+	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String save(Produto produto){
+	public String save(@Validated @RequestBody Produto produto){
 	System.out.println("Cadastrando o produto : "+produto.toString());
 	productDAO.save(produto);
 	return "ok";
