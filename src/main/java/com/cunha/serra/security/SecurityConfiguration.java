@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  
 
 
@@ -29,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.antMatchers("/public/**").permitAll()
+		.antMatchers("/static/**").permitAll()
 		.antMatchers("/shopping/**").hasRole("ADMIN")
 		.antMatchers(HttpMethod.GET,"/produtos/list").hasRole("ADMIN")
 		.and().httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint());
@@ -70,8 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		System.out.println("AuthenticationManagerBuilder - configure: "+auth.userDetailsService(users).toString());
 		//auth.userDetailsService(users);
-		//auth.userDetailsService(users).passwordEncoder(new BCryptPasswordEncoder());
-		auth.inMemoryAuthentication().withUser("bill").password("abc123").roles("ADMIN");
+		auth.userDetailsService(users).passwordEncoder(new BCryptPasswordEncoder());
+		//auth.inMemoryAuthentication().withUser("bill").password("abc123").roles("ADMIN");
 		//auth.inMemoryAuthentication().withUser("tom").password("abc123").roles("USER");
 	}
 	

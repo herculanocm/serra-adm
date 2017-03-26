@@ -27,15 +27,15 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 			"classpath:/META-INF/resources/", "classpath:/resources/",
 			"classpath:/static/", "classpath:/public/" };
 	
-	/*
+	
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/public/");
+		resolver.setPrefix("/resources/public/");
 		resolver.setSuffix(".html");
 		return resolver;
 	}
-	*/
+	
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();

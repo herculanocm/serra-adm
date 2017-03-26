@@ -183,7 +183,7 @@ angular.module('son')
                         console.log('resposta ' + JSON.stringify(resp));
 
                 }, function (error) {
-                    $log.error('Eror ' + error);
+                    $log.error('Eror ' + JSON.stringify(error));
                     $rootScope.warn('ERRO ', 'ATENÇÃO', function () {
                         //console.log('mensagem enviadoa');
                     });
