@@ -158,7 +158,7 @@ angular.module('son')
                         bookType: "EBOOK"
                     }
                 ]
-            };
+            };  
             
             var respostaUni = $http.get('http://localhost:8080/produtos/list');
             respostaUni.then(function (resp) {
