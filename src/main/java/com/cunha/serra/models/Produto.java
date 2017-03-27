@@ -26,6 +26,7 @@ public class Produto {
 	private String title;
 	
 	private String description;
+	
 	@Min(30)
 	private int pages;
 	
